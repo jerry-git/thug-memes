@@ -18,6 +18,17 @@ jobs:
     - python: 3.6
       env: TOXENV=py36
 
+    - stage: deploy
+      python: 3.6
+      script: skip
+      deploy:
+        provider: pypi
+        user: jerry-pypi
+        password:
+          secure: D/jcyHA1ytj2B3qU4YnStlpj69DtLw1NuLLL9DJfctg+ylex71hphzEPuh0GurxSCFTI7z5wyP+joRDIPvIec1+zRDADjZYd3aTMRv6RdUfkTenEcMHBm0bwfo727n241lXVpMmlA5ufMQaXimZJtkhsoj2T95ncqd8DUInENxs3WLtdQQJhMGPhIj2CTTsBKQX4xDW2TYOBZ9A7g1ZwOrwuZRdKkG1nqJHTPd57OmvAOCLNorT6k3bJjmxYby1B2mG5TYo+29kKWdY6KIKH4dvRHKA93YAA5t5nYfB6knX2N1n/fXs+zPt2lEvm440+WMbdeTahU7hOYqElbSjTRv2D/TujtLxoFgNMjBKPXgJc21dLaNZiLPmy4qrtIw1H+jy9YZWAgkzv3YbeTYkRttJgUe8iqml/e8Y1+ATpFPmZE9BB4KW2AGWsxyBX8/75xx8171AKkE/RGhqf1KEjSDqpugkfr7IGKshMDpTAxpQBhN3YSSxf+v5WBYbP6Si8CwfbDEP/j1ub4xSc8jt6bdUr2QJokKcEy+b9L94797dqI7IaSs+6EiUk8QPlkUrokBXR+nKhTnJx56/UYAIfSDZPE8tEvHyXg4fL1Ox7p63ASkkZbI++ex88euxRSpjIhcKYZGeNXhGegmzd+S/s00cjZzKSnGesTeOj7TeoAfs=
+        on:
+          tags: true
+
 script:
   - tox
 
