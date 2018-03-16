@@ -1,0 +1,19 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Coverage
+.coverage
+coverage.xml
+
+#tox
+.tox/*
+
+# Misc
+.idea/*
+dist/*
+src/thug_memes.egg-info/*
+.cache/*
+*.DS_Store
+.eggs/*

@@ -1,0 +1,11 @@
+[paths]
+source = src/thug
+
+[run]
+branch = True
+source = thug
+parallel = true
+
+[report]
+show_missing = true
+precision = 2

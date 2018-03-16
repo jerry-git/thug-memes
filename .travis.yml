@@ -1,0 +1,27 @@
+sudo: false
+language: python
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -qq cmake python-numpy python-scipy libboost-python-dev
+
+install:
+  - pip install tox
+  - pip install dlib
+
+jobs:
+  include:
+    - python: 3.4
+      env: TOXENV=py34
+    - python: 3.5
+      env: TOXENV=py35
+    - python: 3.6
+      env: TOXENV=py36
+
+script:
+  - tox
+
+notifications:
+  slack:
+    secure: mMQ+rRTo7/ieqTMicQ8jPnmFnLog0efYqA0yRIpAJ+fYhUppI4eb95fEvHGxlTiYiBrM7eKYyh6DHOn6rcUOcWAXsqOKiDhMJOAGMvJ+sk6dGcsmLomxCdqJIT6F0LmbcaccEtzh72sb3KjCKTqDZcbVFPxHuRiPwqFWsvtIHo6htgjN1dsF7DEitIC58Vp7f9wgPz5ERXlambHhffsFoQLNeRN9OO3gv7MKLN1+EEEmxQqVh4v8Vriovpwdfb64ZgukDqjfWyqo4yCrgP328CjvDf1q3vnJ1xo9EuNND5sB8v3r87uqzCrou5XS8YKNl0i2431rh9tIg6ROCKka5tbxLWIDMMBEKWZIJ8bH6kWDuBYg72WHK2jXzg/HuQBSd3OOFHEfVyQ4e8ViRMNO46p+qyHCsUur9PvAjh2yGNuyOqxxiFIIHkGOcKU+PQnBOzhyLbNk9dLQZRcbcxwml/s5YHdiONlQ4BDzjj3NR2Jvl8BGPjRCFFcgr16LtYqRjd16cTVFmKxS6heisXkMUwu7IoFc19GoHdI/gbl+84Y8dsWT82kwVBnnKZdqfzO97T9dTU8mmBvW7SOTe5QYzrCIrNCUWjXkhIzFC6ctEjbkA6sjmhvYaUbvfX9gSNkc0XhauaxlYtlJ4FAqDNT1AVMRQo7U9eccL+zMj74Mcpk=
+
