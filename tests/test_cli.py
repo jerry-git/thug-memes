@@ -86,7 +86,7 @@ class TestCommonCliArgs:
         o1 = ['-o', 'cigar_length', '0.123']
         o2 = ['-o', 'glasses_width', '0.321']
         o3 = ['-o', 'uknown', 'not going to be used']
-        overrides = [*o1, *o2, *o3]
+        overrides = o1 + o2 + o3
         args = [IMG_1_FACE, '', '', *overrides]
 
         with patch(meme_cls) as meme_cls:
