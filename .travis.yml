@@ -8,6 +8,7 @@ before_install:
 install:
   - pip install tox
   - pip install dlib
+  - pip install codecov
 
 jobs:
   include:
@@ -31,6 +32,9 @@ jobs:
 
 script:
   - tox
+
+after_success:
+  - codecov
 
 notifications:
   slack:
