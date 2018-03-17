@@ -7,14 +7,17 @@ install:
 - pip install tox
 - pip install dlib
 - pip install codecov
+
+
+
 jobs:
   include:
-  - python: 3.4
-    env: TOXENV=py34
-  - python: 3.5
-    env: TOXENV=py35
-  - python: 3.6
-    env: TOXENV=py36
+  #- python: 3.4
+  #  env: TOXENV=py34
+  #- python: 3.5
+  #  env: TOXENV=py35
+  #- python: 3.6
+  #  env: TOXENV=py36
   - stage: deploy
     python: 3.6
     script: skip
@@ -22,7 +25,7 @@ jobs:
       provider: pypi
       user: jerry-pypi
       password: 
-      secure: jTPcs0vJn5/4ja9Vd+Ln2AAmX9ma9Wm3ei4jGhVlDq8yCKTrNX77vYDqb6oasZc/H3wz7/SNnuJFIO0RUzD8iEZy1Y755Q2+fDdlxk56PRb1IYoApBd8KLWVCNcBek0hwljoF4t9/uWqiFFEKZpEI3Wslx8vyGRPWxYqx9c+R3GryJT289QkfKYZbQLzBRohxy1VAbYGV1MProHtiqmZgD82BgzWo+5KTACcNpVMaxmhL/Hv5oHjFmNY9//jDnl03Y6URwZYqVwQQY5OHVAzpuPz3L/tFAfbtXQzL3la9mO7o4iKUMJLFnYweAYQONoLzcWIG39POlyaRPQhOA1vwd5Xx3DjD/ebhmLJm5gSpvdBC9tITJI+d2+aW5dJUx7JyHNc7zM6yKET+Sl7VY5eWJ8Wdh4ADHlccyLyOYaYVlx2wpjodN/dGWKUA5aEVrH6rfZXxLW6Yhp717Z4y5PoExcoy4Ku+ONz2lUz+evG96UvL8ZkzM/PWvXio/RBZtzDQFxrmwkXg4+Af+azkHarwe6UzZUYk2HSzPTk1qCVxpc84t8tl33DGUR7oRd0HEKjECm9q88Vt2np7aax4cH8YVXsUeuT73IzHo4h9plh0mQqDHgYDJyq+p0K65PthEQnUvJq/h7iZkf/R8kefZV5gKsT18tqveyqRQOiOIjrDHg=
+        secure: jTPcs0vJn5/4ja9Vd+Ln2AAmX9ma9Wm3ei4jGhVlDq8yCKTrNX77vYDqb6oasZc/H3wz7/SNnuJFIO0RUzD8iEZy1Y755Q2+fDdlxk56PRb1IYoApBd8KLWVCNcBek0hwljoF4t9/uWqiFFEKZpEI3Wslx8vyGRPWxYqx9c+R3GryJT289QkfKYZbQLzBRohxy1VAbYGV1MProHtiqmZgD82BgzWo+5KTACcNpVMaxmhL/Hv5oHjFmNY9//jDnl03Y6URwZYqVwQQY5OHVAzpuPz3L/tFAfbtXQzL3la9mO7o4iKUMJLFnYweAYQONoLzcWIG39POlyaRPQhOA1vwd5Xx3DjD/ebhmLJm5gSpvdBC9tITJI+d2+aW5dJUx7JyHNc7zM6yKET+Sl7VY5eWJ8Wdh4ADHlccyLyOYaYVlx2wpjodN/dGWKUA5aEVrH6rfZXxLW6Yhp717Z4y5PoExcoy4Ku+ONz2lUz+evG96UvL8ZkzM/PWvXio/RBZtzDQFxrmwkXg4+Af+azkHarwe6UzZUYk2HSzPTk1qCVxpc84t8tl33DGUR7oRd0HEKjECm9q88Vt2np7aax4cH8YVXsUeuT73IzHo4h9plh0mQqDHgYDJyq+p0K65PthEQnUvJq/h7iZkf/R8kefZV5gKsT18tqveyqRQOiOIjrDHg=
       on:
         tags: true
 script:
