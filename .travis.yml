@@ -24,6 +24,8 @@ jobs:
   - stage: deploy
     python: 3.6
     script: skip
+    before_install: skip
+    install: skip
     deploy:
       provider: pypi
       user: jerry-pypi
