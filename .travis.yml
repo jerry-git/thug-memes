@@ -11,7 +11,7 @@ install:
 stages:
   - test
   - name: deploy
-    if: tag IS present
+    if: branch = master AND tag IS present
 
 jobs:
   include:
