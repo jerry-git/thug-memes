@@ -1,4 +1,5 @@
 import json
+import logging
 
 import cv2
 import datetime as dt
@@ -7,6 +8,12 @@ import random
 
 from .basic import Meme
 from . import (GLASSES_FILE, CIGAR_FILE)
+
+logger = logging.getLogger(__name__)
+
+
+class ThugError(Exception):
+    pass
 
 
 class ThugMeme(Meme):
@@ -25,10 +32,16 @@ class ThugMeme(Meme):
 
         for thug in self._thugs:
             if thug.eyes_available:
-                self._draw_glasses(img, thug)
+                try:
+                    self._draw_glasses(img, thug)
+                except ThugError as e:
+                    logger.error(e)
 
                 if thug.mouth_available:
-                    self._draw_cigar(img, thug)  # depends also on eyes
+                    try:
+                        self._draw_cigar(img, thug)  # depends also on eyes
+                    except ThugError as e:
+                        logger.error(e)
 
         cv2.imwrite(res_file, img)
         self._img_path = res_file
@@ -43,7 +56,7 @@ class ThugMeme(Meme):
         gx, gy, gw, gh = self._calculate_glasses_dimensions(w, h, thug)
         scaled = cv2.resize(rotated, (gw, gh), interpolation=cv2.INTER_AREA)
 
-        self._draw_on_top(img, gx, gy, scaled)
+        self._draw_on_top(img, gx, gy, scaled, 'glasses')
 
     def _calculate_glasses_dimensions(self, origw, origh, thug):
         w = int(thug.eyes_distance * self._glasses_width)
@@ -104,22 +117,26 @@ class ThugMeme(Meme):
         x = thug.mouth.x - cigar_mouth_center[0]
         y = thug.mouth.y - cigar_mouth_center[1]
 
-        self._draw_on_top(img, x, y, scaled_rot)
+        self._draw_on_top(img, x, y, scaled_rot, 'cigar')
 
     def _calculate_cigar_wh(self, orig_w, orig_h, thug):
         h = int(self._cigar_length * (thug.mouth.y - thug.left_eye.y))
         w = int(orig_w * (h / orig_h))
         return w, h
 
-    def _draw_on_top(self, img, x, y, sub_img):
-        # TODO: some intelligent scaling needed here if sub img does not fit
+    def _draw_on_top(self, img, x, y, sub_img, sub_name=''):
         h, w, _ = sub_img.shape
         mask = sub_img[:, :, 3]
         mask_inv = cv2.bitwise_not(mask)
         sub_img_ = sub_img[:, :, :3]
 
         background = img[y:y + h, x:x + w]
-        background = cv2.bitwise_and(background, background, mask=mask_inv)
+        try:
+            background = cv2.bitwise_and(background, background, mask=mask_inv)
+        except cv2.error as e:
+            raise ThugError(
+                'Can not draw {}, please try with smaller {}.'.format(
+                    sub_name, sub_name))
         foreground = cv2.bitwise_and(sub_img_, sub_img_, mask=mask)
         sum_ = cv2.add(background, foreground)
 

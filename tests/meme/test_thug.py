@@ -4,9 +4,9 @@ import cv2
 import pytest
 
 from thug.detect.result import ThugLandmarks
-from thug.meme.thug import ThugMeme
+from thug.meme.thug import (ThugMeme, ThugError)
 from thug.conf import get_config
-from ..conftest import IMG_3_FACES
+from ..conftest import (IMG_3_FACES, IMG_GLASSES)
 
 DEFAULT_KWARGS = {
     'config': get_config()['meme'],
@@ -34,15 +34,27 @@ def thug_meme(thug1, thug2):
     return meme
 
 
+@patch('thug.meme.basic.cv2.imwrite')
+@patch('thug.meme.basic.Meme.create')
+@patch('thug.meme.thug.ThugMeme._draw_glasses')
+@patch('thug.meme.thug.ThugMeme._draw_cigar')
 class TestCreate:
-    @patch('thug.meme.basic.cv2.imwrite')
-    @patch('thug.meme.basic.Meme.create')
-    @patch('thug.meme.thug.ThugMeme._draw_glasses')
-    @patch('thug.meme.thug.ThugMeme._draw_cigar')
     def test_it_draws_cigar_and_glasses_for_all_thugs(
             self, draw_cigar, draw_glasses, base_cls_create, imwrite,
             thug_meme):
 
+        thug_meme.create(res_file='test', show=False)
+
+        assert draw_glasses.call_count == 2
+        assert draw_cigar.call_count == 2
+        assert base_cls_create.call_count == 1
+
+    def test_it_does_not_crash_if_thug_error_is_raised(
+            self, draw_cigar, draw_glasses, base_cls_create, imwrite,
+            thug_meme):
+        draw_glasses.side_effect = ThugError(
+            'sorry memer, problem with glasses')
+        draw_cigar.side_effect = ThugError('sorry memer, problem with cigar')
         thug_meme.create(res_file='test', show=False)
 
         assert draw_glasses.call_count == 2
@@ -70,3 +82,14 @@ class TestDrawGlasses:
         assert draw_on_top.call_count == 1
         args, _ = draw_on_top.call_args
         assert (args[0] == img).all()
+
+
+class TestDrawOnTop:
+    def test_it_raises_thug_error_if_sub_img_does_not_fit(self, thug_meme):
+        img = cv2.imread(IMG_3_FACES)
+        img_h, img_w, _ = img.shape
+        glasses = cv2.imread(IMG_GLASSES, -1)
+        with pytest.raises(ThugError):
+            # try to draw the glasses to the right edge of the img
+            thug_meme._draw_on_top(
+                img=img, x=img_w, y=0, sub_img=glasses, sub_name='test')
