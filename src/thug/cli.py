@@ -58,8 +58,8 @@ def _load_configuration(override, show_and_exit):
 
 def _form_result_path(orig_path, result_dir, fname_extra=''):
     fname = osp.basename(orig_path)
-    base, extension = fname.split('.')
-    fname = '{}{}.{}'.format(base, fname_extra, extension)
+    base, extension = osp.splitext(fname)
+    fname = '{}{}{}'.format(base, fname_extra, extension)
     return osp.join(result_dir, fname)
 
 

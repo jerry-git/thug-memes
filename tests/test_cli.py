@@ -1,9 +1,10 @@
+from os import (getcwd, path as osp)
 from unittest.mock import (patch, MagicMock)
 
 from click.testing import CliRunner
 import pytest
 
-from thug.cli import meme, thug_meme
+from thug.cli import (meme, thug_meme, _form_result_path)
 from .conftest import IMG_1_FACE
 
 
@@ -98,3 +99,20 @@ class TestCommonCliArgs:
             assert conf['cigar_length'] == '0.123'
             assert conf['glasses_width'] == '0.321'
             assert 'unknown' not in conf
+
+
+class TestFormResultPath:
+    # yapf:disable
+    @pytest.mark.parametrize(
+        'orig_fname, extra, expected_fname',
+        [('img.jpg', '-thug', 'img-thug.jpg'),
+         ('img.jpg', '', 'img.jpg'),
+         ('img.with.dots.jpg', '-thug', 'img.with.dots-thug.jpg'),
+         ('.starts-with-dot.jpg', '-thug', '.starts-with-dot-thug.jpg')])
+    # yapf:enable
+    def test_it_converts_file_name(self, orig_fname, extra, expected_fname):
+        orig = osp.join(osp.dirname(__file__), orig_fname)
+        result_dir = getcwd()
+        res = _form_result_path(
+            orig_path=orig, result_dir=result_dir, fname_extra=extra)
+        assert res == osp.join(result_dir, expected_fname)
