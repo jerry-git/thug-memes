@@ -80,6 +80,10 @@ If you don't want to have awesome Thug elements in your meme, there is also 'a p
 
 Example images are from `pexels <https://www.pexels.com/photo-license/>`__.
 
+Contributing
+------------
+See `contributing <https://github.com/jerry-git/thug-memes/blob/master/CONTRIBUTING.md>`__ guide.
+
 
 .. |pypi| image:: https://img.shields.io/pypi/v/thug-memes.svg
    :target: https://pypi.python.org/pypi/thug-memes
