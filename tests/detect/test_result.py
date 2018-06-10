@@ -34,5 +34,5 @@ class TestThugLandmarks:
          ((10, 10), (20, 20, 15), (15, 50))])
     # yapf:enable
     def test_init_with_invalid_params(self, l_eye, r_eye, mouth):
-        with pytest.raises(AssertionError):
+        with pytest.raises(Exception):
             ThugLandmarks(l_eye=l_eye, r_eye=r_eye, mouth=mouth)
