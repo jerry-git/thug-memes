@@ -19,7 +19,12 @@ Requirements
     pip3 install thug-memes
 
 This installs the core version which supports `opencv <https://pypi.python.org/pypi/opencv-python>`__ haarcascade based detector. If you are serious with your thug memes (like you definitely should), there is also support for 
-`dlib <http://dlib.net/>`__ based detector which, in general, provides better results. If you want to enjoy dlib's accuracy, please follow `dlib's own installation instructions <https://pypi.python.org/pypi/dlib>`__. Some additional dlib installation guides for macOS and Ubuntu can be found in: `[1] <https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf>`__  `[2] <https://www.pyimagesearch.com/2018/01/22/install-dlib-easy-complete-guide/>`__ 
+`dlib <http://dlib.net/>`__ based detector which, in general, provides better results. If you want to enjoy dlib's accuracy, please follow `dlib's own installation instructions <https://pypi.python.org/pypi/dlib>`__. Some additional dlib installation guides for macOS and Ubuntu can be found in: `[1] <https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf>`__  `[2] <https://www.pyimagesearch.com/2018/01/22/install-dlib-easy-complete-guide/>`__.
+Thug memes can be installed with dlib's Python bindings included:
+
+.. code:: bash
+
+    pip3 install thug-memes[dlib]
 
 Usage
 -----
