@@ -7,12 +7,10 @@ install:
 - pip install tox
 - pip install dlib
 - pip install codecov
-
 stages:
-  - test
-  - name: deploy
-    if: tag IS present
-
+- test
+- name: deploy
+  if: tag IS present
 jobs:
   include:
   - python: 3.4
@@ -33,11 +31,10 @@ jobs:
     deploy:
       provider: pypi
       user: jerry-pypi
-      password: 
-        secure: jTPcs0vJn5/4ja9Vd+Ln2AAmX9ma9Wm3ei4jGhVlDq8yCKTrNX77vYDqb6oasZc/H3wz7/SNnuJFIO0RUzD8iEZy1Y755Q2+fDdlxk56PRb1IYoApBd8KLWVCNcBek0hwljoF4t9/uWqiFFEKZpEI3Wslx8vyGRPWxYqx9c+R3GryJT289QkfKYZbQLzBRohxy1VAbYGV1MProHtiqmZgD82BgzWo+5KTACcNpVMaxmhL/Hv5oHjFmNY9//jDnl03Y6URwZYqVwQQY5OHVAzpuPz3L/tFAfbtXQzL3la9mO7o4iKUMJLFnYweAYQONoLzcWIG39POlyaRPQhOA1vwd5Xx3DjD/ebhmLJm5gSpvdBC9tITJI+d2+aW5dJUx7JyHNc7zM6yKET+Sl7VY5eWJ8Wdh4ADHlccyLyOYaYVlx2wpjodN/dGWKUA5aEVrH6rfZXxLW6Yhp717Z4y5PoExcoy4Ku+ONz2lUz+evG96UvL8ZkzM/PWvXio/RBZtzDQFxrmwkXg4+Af+azkHarwe6UzZUYk2HSzPTk1qCVxpc84t8tl33DGUR7oRd0HEKjECm9q88Vt2np7aax4cH8YVXsUeuT73IzHo4h9plh0mQqDHgYDJyq+p0K65PthEQnUvJq/h7iZkf/R8kefZV5gKsT18tqveyqRQOiOIjrDHg=
+      password:
+        secure: o/j9T+2ZheXR6axcYW93ElP+0Tz01Fk8rwPNjkfkRTAA4UUfiyrqa6MkmeGWCTzxwxH1Pa7wfW1pQpK1QvJ9kEymhdA1GMWRzIvr0qrLoJG08VXjyvnsyNKS6xwdTnmn+8pwnCU12sI1V/WV79+uMOpa5UG2IAkSvmBHJJn9BqxhhTgvhuVJdzjCERKTKuu88iyRZ2uhGZT3/AGveBVeRw8U1DnyXSInj6Yyu/cn4lE0bHkmMNh8mjJ83Yua9Yz61Nsuj390mcvkKaWIUKgfID9LP3M2M4oeiFCK2WNcGPPhSXP7LbDfxl21Kvmx0XqOS0otCsIdf8MAcjDhjSq8sAc4pZAbWMeY3JX45Ua21INRZQQ/pN7boYiyuGMJVgjFAaZw6PzLo31if5yId7ud6vp0zo7izia1oFvHOaVgTm94SDwrKFC0LK96Sdj6TEwbmVokHh1CwDMzZ9f3d/1I/ZF/AbaEYx8D+VXGiMr1Hp3Xyb13Btp1Y6rLIQbn/+wbWExkvy4uH/gPsA3ULehpyeECQ04NCtw5+Zd5wq3NswozX13YxsLE6Al2BkM8jx/vyA6JuCuSwbsIFsRM6dAJWs1vHPmYN4xxAZieOjPUZtfVtMuJeSL5c3ZkaWTDTrMVagiGPHZ5iJmsBuAV6B7QrK6QcbNLJ+tHtPG7MMjXyBo=
       on:
         tags: true
-
 script:
 - tox
 after_success:
