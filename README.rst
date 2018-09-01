@@ -24,7 +24,7 @@ Thug memes can be installed with dlib's Python bindings included:
 
 .. code:: bash
 
-    pip3 install thug-memes[dlib]
+    pip3 install "thug-memes[dlib]"
 
 Usage
 -----
